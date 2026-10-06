@@ -1,0 +1,535 @@
+/* ========================================
+   RESET
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --paper: #fffaf5;
+    --paper-dark: #f0e3da;
+    --text: #493b36;
+    --subtext: #89766d;
+    --accent: #b86b73;
+    --background: #eadbd4;
+}
+
+
+/* ========================================
+   BODY
+======================================== */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            #fff8f4 0%,
+            #eadbd4 55%,
+            #d8c4bd 100%
+        );
+    font-family:
+        "Noto Serif TC",
+        "PingFang TC",
+        "Microsoft JhengHei",
+        serif;
+    color: var(--text);
+}
+
+/* ========================================
+   背景漂浮
+======================================== */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+
+.background span {
+    position: absolute;
+    color: rgba(184, 107, 115, 0.25);
+    font-size: 20px;
+    animation: float 8s infinite ease-in-out;
+}
+
+
+.background span:nth-child(1) {
+    left: 10%;
+    top: 20%;
+}
+
+.background span:nth-child(2) {
+    left: 25%;
+    top: 70%;
+    animation-delay: 2s;
+}
+
+.background span:nth-child(3) {
+    left: 75%;
+    top: 15%;
+    animation-delay: 1s;
+}
+
+.background span:nth-child(4) {
+    left: 90%;
+    top: 55%;
+    animation-delay: 3s;
+}
+
+.background span:nth-child(5) {
+    left: 60%;
+    top: 80%;
+    animation-delay: 4s;
+}
+
+.background span:nth-child(6) {
+    left: 40%;
+    top: 10%;
+    animation-delay: 5s;
+}
+
+.background span:nth-child(7) {
+    left: 5%;
+    top: 85%;
+    animation-delay: 2.5s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.25;
+    }
+
+    50% {
+        transform: translateY(-30px) rotate(15deg);
+        opacity: 0.65;
+    }
+
+}
+
+/* ========================================
+   MAIN
+======================================== */
+
+main {
+    width: 100%;
+    max-width: 1000px;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================================
+   BOOK
+======================================== */
+
+.book {
+    width: 100%;
+    max-width: 850px;
+    height: 560px;
+    margin: auto;
+    position: relative;
+    perspective: 2500px;
+}
+
+/* ========================================
+   每一張紙
+======================================== */
+
+.sheet {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition:
+        transform 1s cubic-bezier(
+            0.65,
+            0.05,
+            0.36,
+            1
+        );
+    backface-visibility: hidden;
+}
+
+/*
+    重要：
+
+    每張紙有自己的層級。
+
+    最後一頁在最下面，
+    封面在最上面。
+
+    所以：
+
+    封面
+       ↓
+    01
+       ↓
+    02
+       ↓
+    03
+       ↓
+    04
+       ↓
+    05
+       ↓
+    06
+*/
+
+.sheet:nth-child(1) {
+    z-index: 7;
+}
+
+.sheet:nth-child(2) {
+    z-index: 6;
+}
+
+.sheet:nth-child(3) {
+    z-index: 5;
+}
+
+.sheet:nth-child(4) {
+    z-index: 4;
+}
+
+.sheet:nth-child(5) {
+    z-index: 3;
+}
+
+.sheet:nth-child(6) {
+    z-index: 2;
+}
+
+.sheet:nth-child(7) {
+    z-index: 1;
+}
+
+/* ========================================
+   翻過去
+======================================== */
+
+.sheet.flipped {
+    transform: rotateY(-180deg);
+}
+
+/* ========================================
+   紙張
+======================================== */
+
+.paper {
+    width: 100%;
+    height: 100%;
+    background: var(--paper);
+    border-radius: 8px;
+    box-shadow:
+        0 15px 35px rgba(
+            65,
+            45,
+            40,
+            0.15
+        );
+    overflow: hidden;
+    backface-visibility: hidden;
+}
+
+
+/* ========================================
+   內容
+======================================== */
+
+.page-content {
+    width: 100%;
+    height: 100%;
+    padding: 65px 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+
+}
+
+.page-content::after {
+    content: "";
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(
+        184,
+        107,
+        115,
+        0.12
+    );
+    pointer-events: none;
+}
+
+.page-number {
+    position: absolute;
+    top: 30px;
+    left: 35px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: var(--accent);
+
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+p {
+    font-size: 20px;
+    line-height: 2;
+    color: var(--subtext);
+    margin-bottom: 20px;
+}
+
+a {
+    font-size: 20px;
+    line-height: 2;
+    color: var(--subtext);
+    margin-bottom: 20px;
+}
+
+.emphasis {
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.bigemphasis {
+    color: var(--accent);
+}
+
+/* ========================================
+   COVER
+======================================== */
+
+.cover {
+    background:
+        linear-gradient(
+            135deg,
+            #b86b73,
+            #8e525c
+        );
+    color: white;
+}
+
+.cover-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    position: relative;
+}
+
+.cover-content::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.35
+    );
+    border-radius: 4px;
+}
+
+.cover h1 {
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+}
+
+.cover-subtitle {
+    color: rgba(
+        255,
+        255,
+        255,
+        0.85
+    );
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 35px;
+}
+
+/* ========================================
+   BUTTON
+======================================== */
+
+button {
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.open-btn {
+    padding: 13px 25px;
+    border-radius: 30px;
+    background: rgba(
+        255,
+        255,
+        255,
+        0.15
+    );
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.5
+    );
+    color: white;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.open-btn span {
+    margin-left: 10px;
+}
+
+.open-btn:hover {
+    background: white;
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   控制列
+======================================== */
+
+.controls {
+    margin: 35px auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.controls button {
+    background: transparent;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 8px 12px;
+    letter-spacing: 1px;
+}
+
+.controls button:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.controls button:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #9b8780;
+}
+
+.line {
+    width: 50px;
+    height: 5px;
+    background: #bfaea6;
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+    body {
+        align-items: flex-start;
+    }
+
+    main {
+        padding: 25px 15px;
+    }
+
+    .book {
+        height: 570px;
+        max-width: 430px;
+    }
+
+    .page-content {
+        padding: 60px 35px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+
+    p {
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    .cover h1 {
+        font-size: 32px;
+        letter-spacing: 5px;
+    }
+
+    .controls {
+        gap: 15px;
+    }
+
+    .controls button {
+        font-size: 13px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .book {
+        height: 600px;
+    }
+
+    .page-content {
+        padding: 55px 28px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .cover h1 {
+        font-size: 28px;
+    }
+}
