@@ -318,6 +318,12 @@ a {
     color: var(--accent);
 }
 
+.right {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+}
+
 /* ========================================
    COVER
 ======================================== */
